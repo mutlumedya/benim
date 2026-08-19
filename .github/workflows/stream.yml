@@ -1,4 +1,4 @@
-name: HLS Stream Generator
+name: HLS Stream
 
 on:
   workflow_dispatch:
@@ -21,19 +21,20 @@ jobs:
     - name: Install FFmpeg
       run: |
         sudo apt-get update
-        sudo apt-get install -y ffmpeg
+        sudo apt-get install -y ffmpeg -y
     
-    - name: Install Python dependencies
+    - name: Install requests
       run: |
         pip install requests
     
-    - name: Generate HLS Stream
+    - name: Run Stream Generator
       run: |
         python stream_generator.py
     
-    - name: Deploy to GitHub Pages
+    - name: Deploy to Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./hls_output
         publish_branch: gh-pages
+        force_orphan: true
