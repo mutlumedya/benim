@@ -2,10 +2,63 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>📺 Canlı Yayın</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📺 CANLI YAYIN</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; }
+        .video-js { width: 100vw; height: 100vh; }
+        .status {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: #0f0;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-family: Arial;
+            z-index: 1000;
+            font-size: 14px;
+            border: 1px solid #0f0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Yayın Yükleniyor...</h1>
-    <p>Bu sayfa çalışıyor! 🎉</p>
+    <div class="status">🟢 CANLI YAYIN</div>
+    <video id="my-video" class="video-js vjs-default-skin" controls autoplay>
+        <source src="playlist.m3u8" type="application/x-mpegURL">
+    </video>
+    
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <script>
+        var player = videojs('my-video', {
+            html5: {
+                hls: {
+                    enableLowInitialPlaylist: true,
+                    smoothQualityChange: true,
+                    overrideNative: true
+                }
+            }
+        });
+        
+        // Her 15 saniyede bir yeniden bağlanmayı dene
+        setInterval(function() {
+            var currentTime = player.currentTime();
+            player.src({src: 'playlist.m3u8', type: 'application/x-mpegURL'});
+            player.ready(function() {
+                player.currentTime(currentTime);
+                player.play();
+            });
+        }, 15000);
+        
+        // Hata durumunda yeniden dene
+        player.on('error', function() {
+            setTimeout(function() {
+                player.src({src: 'playlist.m3u8', type: 'application/x-mpegURL'});
+                player.play();
+            }, 5000);
+        });
+    </script>
 </body>
 </html>
