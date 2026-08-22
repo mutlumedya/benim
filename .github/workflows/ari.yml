@@ -1,0 +1,33 @@
+version: "1.0"
+anime:
+  name: "Arı Maya"
+  slug: "ari-maya"
+  url: "https://cizgimax.online/diziler/ari-maya-izle/"
+update:
+  interval: "2h"
+  last_update: "2026-08-22T12:00:00"
+  next_update: "2026-08-22T14:00:00"
+seasons:
+  "1":
+    episodes: 100
+    start_id: 4833414
+  "2":
+    episodes: 26
+    start_id: 4833514
+  "3":
+    episodes: 26
+    start_id: 4833614
+  "4":
+    episodes: 52
+    start_id: 4833714
+episodes:
+  - id: 4833414
+    title: "Arı Maya Bölüm 1"
+    url: "https://video.sibnet.ru/shell.php?videoid=4833414"
+    proxy_url: "https://stream.cizgimax.online/embed/4833414"
+    status: "ok"
+    season: 1
+    episode: 1
+  # ... tüm bölümler burada listelenir
+total_episodes: 204
+m3u_file: "ari_maya.m3u"
